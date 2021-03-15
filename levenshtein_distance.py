@@ -1,6 +1,6 @@
 import sys
 
-def levenshtein_distance(string_a, string_b, count = None, max_count = None):
+def levenshtein_distance(string_a, string_b, count = None):
     '''Returns the levenshtein distance between two strings
     Args:
         string_a (str): first string to be compared
@@ -10,12 +10,9 @@ def levenshtein_distance(string_a, string_b, count = None, max_count = None):
         result (int): the calculated levenshtein distance
     '''
 
-    # Initialise count and maxcount so same function can be used for the recursion
+    # Initialise count so same function can be used for the recursion
     if not count:
         count = 0
-
-    if not max_count:
-        max_count = len(string_a) + len(string_b)
 
     # Base case
     if string_a == "" and string_b == "":
@@ -27,32 +24,28 @@ def levenshtein_distance(string_a, string_b, count = None, max_count = None):
     if string_b == "":
         return count + len(string_a)
 
-    # Escape the too deep recursion
-    if count > max_count:
-        return count
-
     # Try to match letter
     if string_a[0] == string_b[0]:
-        return match_letter(string_a, string_b, count, max_count)
+        return match_letter(string_a, string_b, count)
 
     else:
         return min(
-            change_letter(string_a, string_b, count, max_count),
-            insert_letter(string_a, string_b, count, max_count),
-            delete_letter(string_a, string_b, count, max_count),
+            change_letter(string_a, string_b, count),
+            insert_letter(string_a, string_b, count),
+            delete_letter(string_a, string_b, count),
         )
 
-def match_letter(a, b, count, max_count):
-    return levenshtein_distance(a[1:], b[1:], count, max_count)
+def match_letter(a, b, count):
+    return levenshtein_distance(a[1:], b[1:], count)
 
-def change_letter(a, b, count, max_count):
-    return levenshtein_distance(a[1:], b[1:], count+1, max_count)
+def change_letter(a, b, count):
+    return levenshtein_distance(a[1:], b[1:], count+1)
 
-def insert_letter(a, b, count, max_count):
-    return levenshtein_distance(a, b[1:], count+1, max_count)
+def insert_letter(a, b, count):
+    return levenshtein_distance(a, b[1:], count+1)
 
-def delete_letter(a, b, count, max_count):
-    return levenshtein_distance(a[1:], b, count+1, max_count)
+def delete_letter(a, b, count):
+    return levenshtein_distance(a[1:], b, count+1)
 
     # Better pseudocode
 
