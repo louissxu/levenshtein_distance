@@ -31,5 +31,9 @@ class Tests(unittest.TestCase):
         """Check race -> racecar"""
         self.assertEqual(ld("race", "racecar"), 3)
 
+    def test_8(self):
+        """Check dog -> dog"""
+        self.assertEqual(ld("dog", "dog"), 0)
+
 if __name__ == "__main__":
     unittest.main()
