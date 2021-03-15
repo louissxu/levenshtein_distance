@@ -9,11 +9,11 @@ class Tests(unittest.TestCase):
 
     def test_2(self):
         """Check null first string"""
-        self.assertEqual(ld("", "a"), 0)
+        self.assertEqual(ld("", "a"), 1)
 
     def test_3(self):
         """Check null second string"""
-        self.assertEqual(ld("a", ""), 0)
+        self.assertEqual(ld("a", ""), 1)
 
     def test_4(self):
         """Check dog -> cat"""
