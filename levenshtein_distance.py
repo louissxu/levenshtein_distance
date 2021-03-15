@@ -15,6 +15,7 @@ def levenshtein_distance(string_a, string_b, count = None):
         count = 0
 
     # Base case
+    # One or more of the strings are empty. Return the total count
     if string_a == "" and string_b == "":
         return count
 
@@ -24,10 +25,13 @@ def levenshtein_distance(string_a, string_b, count = None):
     if string_b == "":
         return count + len(string_a)
 
-    # Try to match letter
+    # Recursive cases
+
+    # Try to match letter for free
     if string_a[0] == string_b[0]:
         return match_letter(string_a, string_b, count)
 
+    # Otherwise, do spendy task
     else:
         return min(
             change_letter(string_a, string_b, count),
@@ -36,49 +40,30 @@ def levenshtein_distance(string_a, string_b, count = None):
         )
 
 def match_letter(a, b, count):
+    # pig -> pat
+    # ig -> at
+    # Count does not increment. "Free letter"
     return levenshtein_distance(a[1:], b[1:], count)
 
 def change_letter(a, b, count):
+    # dog -> cat
+    # cog -> cat
+    # og -> at (includes the step done by match letter)
+    # Count increments since this is a costly action
     return levenshtein_distance(a[1:], b[1:], count+1)
 
 def insert_letter(a, b, count):
+    # dog -> cat
+    # cdog -> cat
+    # dog -> at (including the step done by match letter)
+    # Count increments
     return levenshtein_distance(a, b[1:], count+1)
 
 def delete_letter(a, b, count):
+    # dog -> cat
+    # og -> cat
+    # Count increments
     return levenshtein_distance(a[1:], b, count+1)
-
-    # Better pseudocode
-
-    # base case
-    # if a and b are the same return count
-
-    # else recursive case 
-    # recursive case
-    # return ld of minimum of:
-    # match_letter
-    # change letter
-    # insert_letter
-    # delete_letter
-
-
-    # match_letter(a, b, count):
-    #     dog -> dark
-    #     return ld(og, ark, count)
-
-    # change_letter(a, b, count):
-    #     dog -> cat
-    #     return ld(og, at, count +=1)
-
-    # insert_letter(a, b, count):
-    #     dog -> cat
-    #     cdog -> cat
-    #     return ld(cdog, cat, count += 1) (and let subsequent match remove one) or simplify down and
-    #     return ld(dog, at, count += 1)
-
-    # delete_letter(a, b, count):
-    #     dog -> cat
-    #     og -> cat
-    #     return ld(og, cat count += 1)
 
 
 def main():
