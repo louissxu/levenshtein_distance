@@ -5,11 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Run levenshtein_distance.py ",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/levenshtein_distance.py",
             "args": ["cat", "dog"],
+            "console": "integratedTerminal"
+        },
+
+        {
+            "name": "Run unit tests",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/test_levenshtein_distance.py",
             "console": "integratedTerminal"
         }
     ]
